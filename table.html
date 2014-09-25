@@ -12,7 +12,7 @@
 
 		<!-- Bootstrap core CSS -->
 		<link href="../lib/bootstrap-3.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+		<link href="../lib/bootstrap-table/src/bootstrap-table.css" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href="../img/usdos-logo-seal.png" rel="shortcut icon">
 		<link href="assets/css/navbar.css" rel="stylesheet">
@@ -25,6 +25,30 @@
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<style type="text/css">
+			html, body { 
+				height:100%;
+				width: 100%;
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+			.container {
+				width:100%;
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+			.navbar {
+				box-shadow: 0 8px 16px -8px #222;
+			}
+			#map {
+				position: absolute;
+				top: 80px;
+				width: 100%;
+				height:80%;
+				box-shadow: 0 8px 16px -8px #222;
+			}                                                                                                                                                                       
+		</style>
+	
 	</head>
 
 	<body>
@@ -47,7 +71,13 @@
 						<ul class="nav navbar-nav">
 							<li><a href="chart.html">Chart</a></li>
 							<li><a href="map.html">Map</a></li>
-							<li><a href="data.html">Table</a></li>
+							<li class="dropdown">
+								<a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>Table Tools <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#" download="#" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Download Data</a></li>
+									<li><a href="#" download="#" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Download PDF</a></li>
+                				</ul>
+          					</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="archive.html">Archive</a></li>
@@ -56,7 +86,20 @@
 				</div><!--/.container-fluid -->
 			</div>
 
-			
+	<!--
+	<table id="table-javascript"></table>
+	-->
+			<div class="bs-example">
+                    <table data-toggle="table" data-url="data/state-data.json" data-cache="false">
+                        <thead>
+                            <tr>
+                                <th data-field="Country" data-sortable="true">Country</th>
+                                <th data-field="Response" data-sortable="true">Stance</th>
+                                <th data-field="Timestamp" data-sortable="true">Timestamp</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
 
 		<!-- Bootstrap core JavaScript
@@ -64,5 +107,8 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../lib/bootstrap-3.1.1/dist/js/bootstrap.min.js"></script>
+		<script src="../lib/bootstrap-table/src/bootstrap-table.js"></script>
+		<script src="assets/js/host.js"></script>
+		<script src="assets/js/table.js"></script>
 	</body>
 </html>

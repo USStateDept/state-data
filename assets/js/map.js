@@ -1,4 +1,4 @@
-var urlWhole = "http://" + host + "/geoserver/opengeo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=opengeo%3Astate-data_50m&maxfeatures=500&outputformat=json";
+var urlWhole = "http://" + host + "/geoserver/opengeo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=opengeo%3Astate-data_50m&maxfeatures=250&outputformat=json";
 			
 $.ajax({
 	url: urlWhole,
@@ -15,11 +15,11 @@ $.ajax({
 			
 function getColorStateData(d) {
 	if (d == 'Yes') {
-		return	'#2E9AFE'
-	} else if (d == 'No') {
-		return	'#FAAC58'
+		return	'#6380A6'
 	} else if (d == 'Unsure') {
-		return	'#A9F5A9'
+		return	'#F2EFC4'
+	} else if (d == 'No') {
+		return	'#F2A97E'
 	} else {
 		return	'#D8D8D8';
 	}
@@ -30,7 +30,8 @@ function styleStateData(feature) {
 		weight: 1,
 		opacity: 1,
 		color: 'white',
-		fillColor: getColorStateData(feature.properties.Response)
+		fillColor: getColorStateData(feature.properties.Response),
+		fillOpacity: .65
 	};
 }
 			
@@ -46,9 +47,9 @@ if (width < 350) {
 } else if (width < 1000) {
 	deviceZoom = "2"
 } else if (width < 2000) {
-	deviceZoom = "2"
-} else {
 	deviceZoom = "3"
+} else {
+	deviceZoom = "4"
 }
 
 var southWest = L.latLng(-67,-179.5),
@@ -58,18 +59,21 @@ var southWest = L.latLng(-67,-179.5),
 var map = new L.Map('map', {
 	center: [20, 10],
 	zoom: deviceZoom,
-	maxZoom: 6,
+	maxZoom: 12,
 	minZoom: deviceZoom,
-	//worldCopyJump: true,
+	worldCopyJump: true,
 	noWrap: false,
 	maxBounds: bounds
 });
 
+//base layer here
 L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 	maxZoom: 18,
 	attribution: cmAttr,
 	id: 'examples.map-20v6611k'
 }).addTo(map);
+
+
 
 function highlightFeature(e) {
 	var layer = e.target;
@@ -107,7 +111,7 @@ function onEachFeature(feature, layer) {
 	var popupContent = "";
 	if(feature.properties.Country!=null){
 				
-	popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Stance: " + feature.properties.Response + "</h5><h5>Details: " + feature.properties.Details + "</h5>";
+	popupContent = "<h4>" + feature.properties.Country + "</h4><h5>Stance: " + feature.properties.Response + "</h5>";
 				
 	layer.bindPopup(popupContent);
 	}
